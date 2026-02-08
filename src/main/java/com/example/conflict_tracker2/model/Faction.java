@@ -4,24 +4,24 @@ import jakarta.persistence.*;
 
 import java.util.Set;
 
-//@Entity
+@Entity
 public class Faction {
 
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
-    /*@ManyToOne
-    @JoinColumn(name = "conflict_id")*/
+    @ManyToOne
+    @JoinColumn(name = "conflict_id")
     private Conflict conflict;
 
-   /* @ManyToMany
+   @ManyToMany
     @JoinTable(
             name = "faction-country",
             joinColumns = @JoinColumn(name = "faction_id"),
             inverseJoinColumns =  @JoinColumn(name = "country_id")
-    )*/
+    )
 
     private Set<Country> countries;
 

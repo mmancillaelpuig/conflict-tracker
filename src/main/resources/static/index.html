@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>Conflictes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #aaa;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        caption {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Conflictes</h1>
+<table id="conflicts-table">
+    <caption>Llista de conflictes</caption>
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>Data d'inici</th>
+        <th>Estat</th>
+        <th>Descripció</th>
+        <th>Països involucrats</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<script>
+    const apiUrl = "/api/v1/conflicts";
+
+    async function loadConflicts() {
+        try {
+            const response = await fetch(apiUrl);
+            if (!response.ok) {
+                throw new Error('Error al carregar els conflictes: ' + response.status);
+            }
+            const conflicts = await response.json();
+
+            const tbody = document.querySelector("#conflicts-table tbody");
+            tbody.innerHTML = "";
+
+            conflicts.forEach(conflict => {
+                const row = document.createElement("tr");
+
+                const countries = conflict.countryIds ? conflict.countryIds.join(", ") : "";
+
+                row.innerHTML = `
+                    <td>${conflict.name}</td>
+                    <td>${conflict.startDate || ""}</td>
+                    <td>${conflict.conflictStatus}</td>
+                    <td>${conflict.description || ""}</td>
+                    <td>${countries}</td>
+                `;
+                tbody.appendChild(row);
+            });
+
+        } catch (error) {
+            console.error(error);
+            alert("No s'han pogut carregar els conflictes.");
+        }
+    }
+
+    window.addEventListener("DOMContentLoaded", loadConflicts);
+</script>
+
+</body>
+</html>

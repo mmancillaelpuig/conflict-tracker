@@ -5,18 +5,18 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
-//@Entity
+@Entity
 public class Event {
 
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate eventDate;
     private String location;
     private String description;
 
-    /*@ManyToOne
-    @JoinColumn(name = "conflict_id")*/
+    @ManyToOne
+    @JoinColumn(name = "conflict_id")
     private Conflict conflict;
 
 

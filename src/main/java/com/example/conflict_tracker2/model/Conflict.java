@@ -6,30 +6,31 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.Set;
 
-//@Entity
+@Entity
 public class Conflict {
 
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
 
     private LocalDate startDate;
 
-    //@Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private status conflictStatus;
 
-    //@Lob
+    @Lob
+    @Column(columnDefinition = "text")
     private String description;
 
 
-   /* @ManyToMany
+   @ManyToMany
     @JoinTable(
             name = "conflict-country",
             joinColumns = @JoinColumn(name = "conflict_id"),
             inverseJoinColumns = @JoinColumn(name = "country_id")
     )
-*/
+
     private Set<Country> countries;
 
     public enum status {
